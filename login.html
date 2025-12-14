@@ -160,25 +160,36 @@
                 const user = userCredential.user;
 
                 // Get user role from Firestore
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                const userData = userDoc.data();
+           
+ const userDoc = await getDoc(doc(db, 'users', user.uid));
 
-                if (userData.role === 'admin') {
-                    // Redirect to admin dashboard
-                    window.location.href = 'admin-dashboard.html';
-                } else {
-                    // Check if payment is approved
-                    if (userData.paymentStatus === 'approved') {
-                        // Redirect to user dashboard
-                        window.location.href = 'dashboard.html';
-                    } else {
-                        // Show pending approval message
-                        alert('Your payment is pending approval. Please wait for verification.');
-                        await auth.signOut();
-                    }
-                }
+if (!userDoc.exists()) {
+    alert('User record not found. Contact support.');
+    await auth.signOut();
+    return;
+}
 
-            } catch (error) {
+const userData = userDoc.data();
+
+// Admin login
+if (userData.role === 'admin') {
+    window.location.href = 'admin-dashboard.html';
+    return;
+}
+
+// Normal user login
+if (
+    userData.role === 'user' &&
+    userData.paymentStatus === 'approved' &&
+    userData.registrationSubmitted === true
+) {
+    window.location.href = 'dashboard.html';
+} else {
+    alert('Your account is not yet fully approved. Please wait for verification.');
+    await auth.signOut();
+}
+                    
+    } catch (error) {
                 console.error('Login error:', error);
                 alert('Login failed: ' + error.message);
                 
