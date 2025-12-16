@@ -193,7 +193,7 @@
         async function loadQuiz() {
             try {
                 const today = new Date().toISOString().split('T')[0];
-                const seasonId = 'season_2026_01';
+                const seasonId = ACTIVE_SEASON_ID;
                 
                 // Get quiz for today
                 const quizQuery = query(
