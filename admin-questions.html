@@ -475,8 +475,8 @@
             try {
                 // Create quiz document
                 const quizDoc = await addDoc(collection(db, 'quizzes'), {
-                    date: serverTimestamp(),
-                    seasonId: ACTIVE_SEASON_ID,
+                    date: date,
+                    seasonId: seasonId ,
                     createdAt: serverTimestamp(),
                     createdBy: auth.currentUser.uid
                 });
