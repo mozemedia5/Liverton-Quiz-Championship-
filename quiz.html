@@ -200,6 +200,7 @@
                     collection(db, 'quizzes'),
                     where('seasonId', '==', seasonId),
                     
+where('date', '==', today)
                 );
                 
                 const quizSnapshot = await getDocs(quizQuery);
