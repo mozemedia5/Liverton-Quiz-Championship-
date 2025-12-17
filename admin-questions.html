@@ -201,7 +201,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 // 🔹 SYSTEM-CONSTANT: active quiz season
-        const ACTIVE_SEASON_ID = "season_2026_01";
+        const seasonId= "season_2026_01";
         // Global variables
         let currentQuestions = [];
         let currentQuizId = null;
@@ -476,7 +476,7 @@
                 // Create quiz document
                 const quizDoc = await addDoc(collection(db, 'quizzes'), {
                     date: date,
-                    seasonId: seasonId ,
+                    seasonId: season_2026_01,
                     createdAt: serverTimestamp(),
                     createdBy: auth.currentUser.uid
                 });
